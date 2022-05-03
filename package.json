@@ -1,0 +1,30 @@
+{
+  "name": "support-desk-repo",
+  "version": "1.0.0",
+  "description": "Support ticket app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JimmyMtl/UdemyReact2022---Support-Desk.git"
+  },
+  "author": "Jimmy MARTEL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JimmyMtl/UdemyReact2022---Support-Desk/issues"
+  },
+  "homepage": "https://github.com/JimmyMtl/UdemyReact2022---Support-Desk#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
