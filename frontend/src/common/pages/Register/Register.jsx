@@ -1,6 +1,9 @@
 import {useState} from "react";
 import {FaUser} from "react-icons/fa";
 import {toast} from "react-toastify";
+import {useSelector, useDispatch} from "react-redux";
+import {register} from "../../redux/features/auth/authSlice";
+
 const Register = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -14,18 +17,27 @@ const Register = () => {
         setFormData((prevsState) => ({...prevsState, [e.target.id]: e.target.value}))
     }
 
+    const dispatch = useDispatch()
+
+    const {user, isLoading, isSuccess, message} = useSelector(state => state.auth)
+
     const onSubmit = (e) => {
         e.preventDefault()
 
-        if(password!==password2){
+        if (password !== password2) {
             toast.error('Password do not match')
+        } else {
+            const userData = {name, email, password}
+            dispatch(register(userData))
         }
     }
 
     return (
         <>
             <section className={'heading'}>
-                <h1><FaUser/> Register</h1>
+                <h1>
+                    <FaUser/> Register
+                </h1>
                 <p>Please create an account</p>
                 <form className={'form'} onSubmit={onSubmit}>
                     <div className="form-group">
@@ -49,7 +61,7 @@ const Register = () => {
                                placeholder={'Confirm your password'} required/>
                     </div>
                     <div className="form-group">
-                        <button type={'submit'} className={'btn btn-block'}>Submit </button>
+                        <button type={'submit'} className={'btn btn-block'}>Submit</button>
                     </div>
                 </form>
             </section>
