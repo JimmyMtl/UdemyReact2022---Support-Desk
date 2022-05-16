@@ -1,6 +1,8 @@
 import {useState} from "react";
 import {FaSignInAlt} from "react-icons/fa";
 import {toast} from "react-toastify";
+import {login} from "../../redux/features/auth/authSlice";
+import {useDispatch} from "react-redux";
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +11,9 @@ const Login = () => {
     });
     const {email, password} = formData
 
+    const dispatch = useDispatch()
+
+
     const onChange = (e) => {
         setFormData((prevsState) => ({...prevsState, [e.target.id]: e.target.value}))
     }
@@ -16,9 +21,8 @@ const Login = () => {
     const onSubmit = (e) => {
         e.preventDefault()
 
-        if (password) {
-            toast.error('Password do not match')
-        }
+        const userData = {email, password}
+        dispatch(login(userData))
     }
 
     return (
