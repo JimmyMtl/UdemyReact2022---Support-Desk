@@ -1,6 +1,8 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "proxy": "http://localhost:4000",
+  "allowedHosts": "all",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
