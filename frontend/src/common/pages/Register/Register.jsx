@@ -4,6 +4,7 @@ import {toast} from "react-toastify";
 import {useSelector, useDispatch} from "react-redux";
 import {register, reset} from "../../redux/features/auth/authSlice";
 import {useNavigate} from "react-router-dom";
+import Spinner from "../../components/Spinner/Spinner";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -44,7 +45,9 @@ const Register = () => {
             dispatch(register(userData))
         }
     }
-
+    if (isLoading) {
+        return <Spinner/>
+    }
     return (
         <>
             <section className={'heading'}>
