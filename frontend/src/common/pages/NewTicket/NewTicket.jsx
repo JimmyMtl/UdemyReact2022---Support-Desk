@@ -8,7 +8,7 @@ import BackButton from "../../components/BackButton/BackButton";
 
 const NewTicket = () => {
     const {user} = useSelector((state) => state.auth)
-    const {isLoading, isError, isSuccess, message} = useSelector((state) => state.ticket)
+    const {isLoading, isError, isSuccess, message} = useSelector((state) => state.tickets)
 
     const [name] = useState(user.name);
     const [email] = useState(user.email);
@@ -57,7 +57,9 @@ const NewTicket = () => {
                     <div className="form-group">
                         <label htmlFor="product">Product</label>
                         <select name="product" id="product" value={product}
-                                onChange={(event) => setProduct(event.target.value)}>
+                                onChange={(event) => setProduct(event.target.value)}
+                                defaultValue={"default"}>
+                            <option value={"default"} disabled>Choose an option</option>
                             <option value="iPhone">iPhone</option>
                             <option value="Macbook">Macbook</option>
                             <option value="iMac">iMac</option>
