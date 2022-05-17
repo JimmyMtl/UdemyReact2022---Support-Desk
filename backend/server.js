@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
     res.status(201).json({message: 'Welcome to the support desk API'})
 })
 
-app.use('/api/users', require('./routes/userRoutes'))
+app.use('/api/users', require('./routes/user/userRoutes'))
+app.use('/api/tickets', require('./routes/ticket/ticketRoutes'))
 app.use(errorHandler)
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
