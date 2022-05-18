@@ -1,14 +1,15 @@
 import {useSelector, useDispatch} from "react-redux";
 import {useEffect, useState} from "react";
-import {getTicket, closeTicket} from "../../redux/features/tickets/ticketSlice";
-import BackButton from "../../components/BackButton/BackButton";
-import Spinner from "../../components/Spinner/Spinner";
 import {useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
-import {getNotes, reset as notesReset} from "../../redux/features/notes/noteSlice";
-import NoteItem from "../../components/NoteItem/NoteItem";
-import Modal from "react-modal"
+import {getTicket, closeTicket} from "../../redux/features/tickets/ticketSlice";
+import {getNotes, createNote, reset as notesReset} from "../../redux/features/notes/noteSlice";
 import {FaPlus} from "react-icons/fa";
+
+import Modal from "react-modal"
+import BackButton from "../../components/BackButton/BackButton";
+import Spinner from "../../components/Spinner/Spinner";
+import NoteItem from "../../components/NoteItem/NoteItem";
 
 const customStyles = {
     content: {
@@ -33,17 +34,26 @@ const Ticket = () => {
 
     const {ticketId} = useParams()
     const {isSuccess, message, isLoading, isError, ticket} = useSelector((state) => state.tickets)
-    const {isLoading: notesIsLoading, notes} = useSelector((state) => state.notes)
+    const {
+        isLoading: notesIsLoading,
+        isError: noteIsError,
+        message: noteMessage,
+        notes
+    } = useSelector((state) => state.notes)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     useEffect(() => {
         if (isError) {
             toast.error(message)
         }
+        if (noteIsError) {
+            toast.error(noteMessage)
+        }
+
         dispatch(getTicket(ticketId))
         dispatch(getNotes(ticketId))
         // eslint-disable-next-line
-    }, [isError, message, ticketId]);
+    }, [isError, message, ticketId, noteIsError, noteMessage]);
 
     const onTicketClose = (e) => {
         dispatch(closeTicket(ticketId))
@@ -57,7 +67,7 @@ const Ticket = () => {
     // Create New note when submit
     const onNoteSubmit = (e) => {
         e.preventDefault()
-        console.log('Submit')
+        dispatch(createNote({noteText, ticketId}))
         closeModal()
     }
 
