@@ -10,6 +10,11 @@ const {
     deleteTicket
 } = require("../../controllers/ticket/ticketController");
 
+const noteRouter = require('../notes/noteRoutes')
+
+// Re-route into note router
+router.use('/:ticketId/notes', noteRouter)
+
 router.route('/')
     .get(protect, getTickets)
     .post(protect, createTicket)
