@@ -10,7 +10,7 @@ const initialState = {
     isLoading: false,
     message: '',
 }
-// get user tickets
+// Get user tickets
 export const getTickets = createAsyncThunk('ticket/getAll', async (_, thunkAPI) => {
     try {
 
